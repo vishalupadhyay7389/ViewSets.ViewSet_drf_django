@@ -19,4 +19,11 @@ class EmployeeDeatilView(ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         emplser = EmployeeSerlizer(empl)
         return Response(emplser.data)
+    def create(self , request):
+        empl = EmployeeSerlizer(data=request.data)
+        if empl.is_valid():
+            empl.save()
+            return Response(empl.data , status=status.HTTP_201_CREATED)
+        return Response(empl.errors , status=status.HTTP_400_BAD_REQUEST)
+        
             
